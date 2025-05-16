@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package analyzer;
+
+
+service ResumeAnalyzer {
+  rpc AnalyzePDF (AnalyzePDFRequest) returns (AnalyzeResponse);
+}
+
+message AnalyzePDFRequest {
+  bytes file = 1;    
+  string file_type = 2;       
+}
+
+message GrammarIssue {
+  string message = 1;
+  string context = 2;
+  int32 offset = 3;
+  int32 length = 4;
+  repeated string replacement = 5;
+}
+
+message AnalyzeResponse {
+  string extracted_text = 1;    
+  repeated GrammarIssue grammar_feedback = 2;
+}
